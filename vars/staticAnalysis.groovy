@@ -1,9 +1,17 @@
 // Archivo: vars/staticAnalysis.groovy
-def call() {
+def call(Map config = [:]) {  // Acepta un mapa de configuración opcional
     stage('Static Code Analysis') {
-        withSonarQubeEnv('SonarQube') { // Ajusta 'SonarQube' al ID de tu servidor en Jenkins
-            // Usa bat para Windows y sh para Linux
-            bat 'echo "Ejecución de las pruebas de calidad de código"' // o usa sh si estás en Linux
+        withSonarQubeEnv('SonarQube') {
+            bat 'echo "Ejecución de las pruebas de calidad de código"'
+            
+            // Aquí podrías agregar el comando real para ejecutar SonarQube o análisis estático
+        }
+        
+        // Verificar el parámetro abortPipeline si está configurado en true
+        if (config.get('abortPipeline', false)) {
+            echo "Abortando el pipeline debido a la configuración de abortPipeline"
+            currentBuild.result = 'ABORTED'
+            error("Pipeline abortado debido a la configuración de abortPipeline")
         }
     }
 }

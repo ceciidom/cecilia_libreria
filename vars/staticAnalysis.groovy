@@ -3,12 +3,10 @@
 def call(Map config = [:]) {
     boolean mockQualityGate = config.get('mockQualityGate', false)  // Simulación de QualityGate
     String simulatedResult = config.get('simulatedResult', 'OK')   // Resultado simulado del QualityGate
-    String sonarServer = config.get('sonarServer', 'sq1')          // Nombre del servidor SonarQube
 
     stage('Static Code Analysis') {
-        withSonarQubeEnv(sonarServer) {
-            // Ejecutar comando de análisis, adaptado a sistemas UNIX o Windows
-            isUnix() ? sh 'echo "Ejecución de las pruebas de calidad de código"' : bat 'echo "Ejecución de las pruebas de calidad de código"'
+        withSonarQubeEnv('sq1') {
+            bat 'echo "Ejecución de las pruebas de calidad de código"'
         }
 
         timeout(time: 5, unit: 'MINUTES') {

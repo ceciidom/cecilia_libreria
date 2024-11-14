@@ -1,7 +1,7 @@
 def call(Map config = [:]) {
     // Obtiene el valor de abortPipeline y el nombre de la rama de la variable de entorno
     boolean abortPipeline = config.get('abortPipeline', false)
-    String branchName = env.BRANCH_NAME ?: 'unknown'  // Asigna "unknown" si no se encuentra la variable
+   String branchName = config.get('branchName', 'unknown')  // Asigna "unknown" si no se encuentra la variable
 
     stage('Static code analysis') {
         withSonarQubeEnv('sq1') {

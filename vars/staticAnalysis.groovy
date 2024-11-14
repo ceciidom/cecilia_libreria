@@ -1,8 +1,8 @@
 def call(boolean abortPipeline = false, int timeout = 5) {
     // Iniciar análisis estático de SonarQube
     stage('Static Code Analysis') {
-        withSonarQubeEnv('SonarQube') { // Asumiendo que el servidor SonarQube está configurado en Jenkins
-            sh 'echo "Ejecución de las pruebas de calidad de código"' // Placeholder para el análisis real
+        withSonarQubeEnv('SonarQube') { // Ajusta el nombre del servidor SonarQube si es necesario
+            bat 'echo "Ejecución de las pruebas de calidad de código"' // Aquí reemplazamos sh con bat
         }
     }
     

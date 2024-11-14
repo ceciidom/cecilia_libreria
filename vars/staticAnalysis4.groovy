@@ -5,7 +5,7 @@ def call(Map config = [:]) {
     stage('Static Code Analysis') {
         withSonarQubeEnv(env.SONARQUBE_SERVER) {
             bat """
-            docker run --rm -e SONAR_HOST_URL=http://192.168.68.123:9000 -e SONAR_LOGIN=sqa_6bf918fb17fd38c86d5da2277086470bf12573da -v "%cd%:/usr/src" sonarsource/sonar-scanner-cli -Dsonar.projectKey=prueba2_jenkins -Dsonar.sources=/usr/src -Dsonar.host.url=http://192.168.68.123:9000 -Dsonar.login=sqa_6bf918fb17fd38c86d5da2277086470bf12573da
+            docker run --rm -e SONAR_HOST_URL=http://192.168.68.123:9000 -e SONAR_LOGIN=sqa_6bf918fb17fd38c86d5da2277086470bf12573da -v "%cd%:/usr/src" sonarsource/sonar-scanner-cli -Dsonar.projectKey=D_Jenkins_Ejercicio_5 -Dsonar.sources=/usr/src -Dsonar.host.url=http://192.168.68.123:9000 -Dsonar.login=sqa_6bf918fb17fd38c86d5da2277086470bf12573da
                                 """
         }
     }

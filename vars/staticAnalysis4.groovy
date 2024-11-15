@@ -11,18 +11,7 @@ def call(Map config = [:]) {
     }
     stage('Quality gate') {
         timeout(time: 5, unit: 'MINUTES') {
-            if (mockQualityGate) { // Si está activado, simula el resultado del QualityGate
-                echo "Simulando resultado del QualityGate..."
-                if (simulatedResult != "OK") { // Si el resultado simulado es un fallo
-                    echo "QualityGate fallido: abortando el pipeline"
-                    currentBuild.result = 'ABORTED'
-                    error("Pipeline abortado debido al fallo MOCK QualityGate")
-                } else {
-                    echo "MOCK QualityGate aprobado: continuando con el pipeline"
-                }
-            } else {
-                echo "Esperando resultado REAL del QualityGate..."
-                try {
+           try {
                     def qg = waitForQualityGate()
                     echo "Quality Gate passed."
 
@@ -36,7 +25,6 @@ def call(Map config = [:]) {
                     currentBuild.result = 'FAILURE'
                     error("Pipeline abortado debido a un error en el QualityGate")
                 }
-            }
         }        
         
     }

@@ -4,6 +4,7 @@ def call(boolean abortPipeline = false) {
         def scannerHome = tool name: 'SonarQube Scanner 1', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
 
         withSonarQubeEnv(env.SONARQUBE_SERVER) {
+            echo "Analizando código con SonarQubeEnv"
             bat """
             "${scannerHome}\\bin\\sonar-scanner" ^
             -D"sonar.projectKey=Recuperacion_Cecilia" ^
@@ -13,6 +14,7 @@ def call(boolean abortPipeline = false) {
             """            
         }
         timeout(time: 10, unit: 'MINUTES') {
+            echo "Esperand resultado de Quality Gate"
             def qualityGate = waitForQualityGate()
             
             if (qualityGate.status != 'OK') {

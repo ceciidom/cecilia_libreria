@@ -7,7 +7,7 @@ def call(boolean abortPipeline = false) {
             echo "Analizando código con SonarQubeEnv"
             bat """
             "${scannerHome}\\bin\\sonar-scanner" ^
-            -D"sonar.projectKey=Recuperacion_Cecilia" ^
+            -D"sonar.projectKey=D_Jenkins_Ejercicio_5" ^
             -D"sonar.sources=%WORKSPACE%\\src" ^
             -D"sonar.host.url=http://192.168.68.123:9000" ^
             -D"sonar.login=sqa_6bf918fb17fd38c86d5da2277086470bf12573da"

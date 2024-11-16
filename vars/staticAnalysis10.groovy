@@ -6,7 +6,7 @@ def call(boolean abortPipeline = false) {
         // Simulación del análisis estático
         bat """
         echo Simulando análisis estático de código...
-        timeout /t 10
+        ping -n 11 127.0.0.1 >nul
         echo Análisis estático completado.
         """
 

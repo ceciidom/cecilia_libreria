@@ -6,21 +6,20 @@ def call(boolean abortPipeline = false) {
         // Simulación del análisis estático
         bat """
         echo Simulando análisis estático de código...
-        ping -n 11 127.0.0.1 >nul
+        ping 127.0.0.1 -n 10 >nul
         echo Análisis estático completado.
         """
 
         // Simulación de timeout y resultado de Quality Gate
         timeout(time: 5, unit: 'MINUTES') {
-            def qualityGateStatus = "OK" // Cambiar a "FAILED" para simular fallo en el Quality Gate
+            def qualityGateStatus = abortPipeline ? 'ERROR' : 'OK'// Cambiar a "FAILED" para simular fallo en el Quality Gate
             echo "Resultado del Quality Gate: ${qualityGateStatus}"
 
             // Evaluar si se debe abortar el pipeline según el parámetro abortPipeline y el estado del Quality Gate
-            if (abortPipeline && qualityGateStatus != "OK") {
-                error "Pipeline abortado debido a que el Quality Gate falló y abortPipeline está configurado como true."
-            }
+            if (qualityGateStatus != "OK") {
+                error "El Quality Gate falló y el pipeline será abortado porque abortPipeline está configurado como ${abortPipeline}"            }
         }
 
-        echo "Pipeline continuará ya que el Quality Gate pasó o abortPipeline está configurado como false."
+        echo "El Quality Gate fue exitoso. Continuando con el pipeline..."
     }
 }
